@@ -15,7 +15,7 @@ public class Boya {
     @Column(name = "boya_id")
     private Integer boyaId;
 
-    
+    @Column(name = "color_id")
     private Integer color;
 
     private Double longitud;
@@ -26,12 +26,12 @@ public class Boya {
     @JsonIgnore
     private List<Muestra> muestras = new ArrayList<>();
 
-    public enum NivelDelMarEnum { 
+    public enum FaroColorEnum { 
         ROJO(1), AMARILLO(2), VERDE(3), AZUL(4), NULL(5);
 
     private final Integer value;
 
-    private NivelDelMarEnum(Integer value) {
+    private FaroColorEnum(Integer value) {
             this.value = value;
         }
 
@@ -39,9 +39,9 @@ public class Boya {
         return value;
     }
 
-    public static NivelDelMarEnum parse(Integer id) {
-        NivelDelMarEnum status = null;
-        for (NivelDelMarEnum item : NivelDelMarEnum.values()) {
+    public static FaroColorEnum parse(Integer id) {
+        FaroColorEnum status = null;
+        for (FaroColorEnum item : FaroColorEnum.values()) {
             if (item.getValue().equals(id)) {
                 status = item;
                 break;
@@ -83,16 +83,17 @@ public class Boya {
         this.latitud = latitud;
     }
 
-    public NivelDelMarEnum getcolor() { // 20:13
-        return NivelDelMarEnum.parse(color);
+    public FaroColorEnum getcolor() { // 20:13
+        return FaroColorEnum.parse(color);
     }
 
-    public void setColor(NivelDelMarEnum color) {
+    public void setColor(FaroColorEnum color) {
         this.color = color.getValue();
     }
 
     /*
-     * public void agregarMuestra(Muestra muestra) { this.muestras.add(muestra);
+     * public void agregarMuestra(Muestra muestra) { 
+     * this.muestras.add(muestra);
      * muestra.setBoya(this); }
      */
 

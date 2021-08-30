@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ar.com.ada.api.noaa.entities.Boya;
 import ar.com.ada.api.noaa.models.GenericResponse;
-import ar.com.ada.api.noaa.models.request.NivelDelMarRequest;
+import ar.com.ada.api.noaa.models.request.FaroColorRequest;
 import ar.com.ada.api.noaa.services.BoyaService;
 
 @RestController
@@ -51,18 +51,18 @@ public class BoyaController {
         return ResponseEntity.ok(service.buscarPorId(id));
     }
 
-    @PutMapping(("/boyas/{id}"))
-    public ResponseEntity<GenericResponse> putActualizarNivelDelMar(@PathVariable Integer id,
-            @RequestBody NivelDelMarRequest nivelDeMar) {
+    @PutMapping(("api/boyas/{id}"))
+    public ResponseEntity<GenericResponse> putActualizarFaroColor(@PathVariable Integer id,
+            @RequestBody FaroColorRequest faroColor) {
 
         GenericResponse r = new GenericResponse();
         r.isOk = true;
 
        Boya boya = service.buscarPorId(id);
-        boya.setColor(nivelDeMar.color);
+        boya.setColor(faroColor.color);
         service.actualizar(boya);
 
-        r.message = "actualizado";
+        r.message = "actualizado correctamente";
         return ResponseEntity.ok(r);
     }
 

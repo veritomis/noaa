@@ -1,22 +1,22 @@
 package ar.com.ada.api.noaa.services;
 
-import java.util.*;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ar.com.ada.api.noaa.entities.Boya;
-import ar.com.ada.api.noaa.entities.Boya.NivelDelMarEnum;
+import ar.com.ada.api.noaa.entities.Boya.FaroColorEnum;
 import ar.com.ada.api.noaa.repos.BoyaRepository;
 
 @Service
 public class BoyaService {
 
     @Autowired
-    BoyaRepository repository;
+    private BoyaRepository repository;
 
     public void crearBoya(Boya boya) {
-        boya.setColor(NivelDelMarEnum.VERDE);
+        boya.setColor(FaroColorEnum.VERDE);
         repository.save(boya);
     }
 
