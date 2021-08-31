@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RestController;
 
 import ar.com.ada.api.noaa.entities.Boya;
-import ar.com.ada.api.noaa.models.GenericResponse;
 import ar.com.ada.api.noaa.models.request.FaroColorRequest;
+import ar.com.ada.api.noaa.models.response.GenericResponse;
 import ar.com.ada.api.noaa.services.BoyaService;
 
 @RestController

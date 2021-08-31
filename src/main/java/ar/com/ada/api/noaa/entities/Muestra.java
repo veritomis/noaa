@@ -7,8 +7,9 @@ import javax.persistence.*;
 @Entity
 @Table(name = "muestra")
 public class Muestra {
-    
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "muestra_id")
     private Integer muestraId;
 
@@ -16,12 +17,13 @@ public class Muestra {
 
     private String matricula;
 
-    private double longitudActual;
+    @Column(name = "longitud_actual")
+    private Double longitudActual;
 
-    private double latitudActual;
+    @Column(name = "latitud_actual")
+    private Double latitudActual;
 
-    private double altura;
-
+    private Double altura;
 
     @ManyToOne
     @JoinColumn(name = "boya_id", referencedColumnName = "boya_id")
@@ -51,30 +53,38 @@ public class Muestra {
         this.matricula = matricula;
     }
 
-    public double getLongitudActual() {
+    public Double getLongitudActual() {
         return longitudActual;
     }
 
-    public void setLongitudActual(double longitudActual) {
+    public void setLongitudActual(Double longitudActual) {
         this.longitudActual = longitudActual;
     }
 
-    public double getLatitudActual() {
+    public Double getLatitudActual() {
         return latitudActual;
     }
 
-    public void setLatitudActual(double latitudActual) {
+    public void setLatitudActual(Double latitudActual) {
         this.latitudActual = latitudActual;
     }
 
-    public double getAltura() {
+    public Double getAltura() {
         return altura;
     }
 
-    public void setAltura(double altura) {
+    public void setAltura(Double altura) {
         this.altura = altura;
     }
 
-    
-    
+    public Boya getBoya() {
+        return boya;
+    }
+
+    public void setBoya(Boya boya) {
+        this.boya = boya;
+    }
+
+   
+
 }

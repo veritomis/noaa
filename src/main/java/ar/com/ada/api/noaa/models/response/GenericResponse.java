@@ -1,4 +1,4 @@
-package ar.com.ada.api.noaa.models;
+package ar.com.ada.api.noaa.models.response;
 
 public class GenericResponse {
     public boolean isOk;

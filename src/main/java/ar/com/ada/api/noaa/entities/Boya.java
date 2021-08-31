@@ -26,30 +26,30 @@ public class Boya {
     @JsonIgnore
     private List<Muestra> muestras = new ArrayList<>();
 
-    public enum FaroColorEnum { 
+    public enum FaroColorEnum {
         ROJO(1), AMARILLO(2), VERDE(3), AZUL(4), NULL(5);
 
-    private final Integer value;
+        private final Integer value;
 
-    private FaroColorEnum(Integer value) {
+        private FaroColorEnum(Integer value) {
             this.value = value;
         }
 
-    public Integer getValue() {
-        return value;
-    }
-
-    public static FaroColorEnum parse(Integer id) {
-        FaroColorEnum status = null;
-        for (FaroColorEnum item : FaroColorEnum.values()) {
-            if (item.getValue().equals(id)) {
-                status = item;
-                break;
-            }
+        public Integer getValue() {
+            return value;
         }
-        return status;
+
+        public static FaroColorEnum parse(Integer id) {
+            FaroColorEnum status = null;
+            for (FaroColorEnum item : FaroColorEnum.values()) {
+                if (item.getValue().equals(id)) {
+                    status = item;
+                    break;
+                }
+            }
+            return status;
+        }
     }
-}
 
     public Integer getBoyaId() {
         return boyaId;
@@ -91,10 +91,10 @@ public class Boya {
         this.color = color.getValue();
     }
 
-    /*
-     * public void agregarMuestra(Muestra muestra) { 
-     * this.muestras.add(muestra);
-     * muestra.setBoya(this); }
-     */
+    public void agregarMuestra(Muestra muestra) {
+        this.muestras.add(muestra);
+        muestra.setBoya(this);
+    }
+
 
 }
