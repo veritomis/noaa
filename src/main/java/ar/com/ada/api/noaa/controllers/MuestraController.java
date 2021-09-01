@@ -20,11 +20,11 @@ public class MuestraController {
         MuestraResponse respuesta = new MuestraResponse();
 
            
-           Integer muestra = service.registrarMuestra(info.boyaId, info.fecha, info.matricula, info.longitudActual, info.latitudActual, info.altura);
+           Muestra muestra = service.registrarMuestra(info.boyaId, info.fecha, info.matricula, info.longitudActual, info.latitudActual, info.altura);
 
             //respuesta.isOk = true;
-            respuesta.id = muestra;
-           // respuesta.color = muestra.getColor();
+            respuesta.id = muestra.getMuestraId();
+            respuesta.color = muestra.getBoya().getColor();
            // respuesta.message = "La muestra se registró correctamente";
 
             return ResponseEntity.ok(respuesta);

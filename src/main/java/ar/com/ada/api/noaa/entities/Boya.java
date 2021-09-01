@@ -83,7 +83,7 @@ public class Boya {
         this.latitud = latitud;
     }
 
-    public FaroColorEnum getcolor() { // 20:13
+    public FaroColorEnum getColor() { // 20:13
         return FaroColorEnum.parse(color);
     }
 
