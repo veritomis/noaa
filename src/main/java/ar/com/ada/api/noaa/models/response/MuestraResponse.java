@@ -5,5 +5,6 @@ import ar.com.ada.api.noaa.entities.Boya.FaroColorEnum;
 public class MuestraResponse {
     public Integer id;
     public FaroColorEnum color;
+    public String message;
     
 }

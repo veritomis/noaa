@@ -5,8 +5,7 @@ import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ar.com.ada.api.noaa.entities.Boya;
-import ar.com.ada.api.noaa.entities.Muestra;
+import ar.com.ada.api.noaa.entities.*;
 import ar.com.ada.api.noaa.entities.Boya.FaroColorEnum;
 import ar.com.ada.api.noaa.repos.MuestraRepository;
 
@@ -50,6 +49,12 @@ public class MuestraService {
 
     public Muestra buscarPorId(Integer id) {
         return repository.findByMuestraId(id);
+    }
+
+
+    public List<Muestra> muestrasPorBoyaId(Integer boyaId) {
+        Boya boya = boyaService.buscarPorId(boyaId);
+        return boya.getMuestras();
     }
 
 
