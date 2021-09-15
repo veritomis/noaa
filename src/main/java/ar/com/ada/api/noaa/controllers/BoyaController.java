@@ -1,6 +1,5 @@
 package ar.com.ada.api.noaa.controllers;
 
-
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,17 +19,16 @@ public class BoyaController {
     private BoyaService service;
 
     @PostMapping("/api/boyas")
-    public ResponseEntity<GenericResponse> crearBoya(@RequestBody Boya boya)  {
-        GenericResponse respuesta = new GenericResponse();
+    public ResponseEntity<GenericResponse> crearBoya(@RequestBody Boya boya) {
+        GenericResponse r = new GenericResponse();
 
-           
-             service.crearBoya(boya);
+        service.crearBoya(boya);
 
-            respuesta.isOk = true;
-            respuesta.id = boya.getBoyaId();
-            respuesta.message = "Boya creada correctamente";
+        r.isOk = true;
+        r.id = boya.getBoyaId();
+        r.message = "La Boya se ha creado correctamente";
 
-            return ResponseEntity.ok(respuesta);
+        return ResponseEntity.ok(r);
     }
 
     @GetMapping("api/boyas")
@@ -40,13 +38,13 @@ public class BoyaController {
 
     @GetMapping("api/boyas/{id}")
     public ResponseEntity<?> traerBoyaById(@PathVariable Integer id) {
-        
-        GenericResponse respuesta = new GenericResponse();
+
+        GenericResponse r = new GenericResponse();
 
         if (!service.validarBoyaExiste(id)) {
-            respuesta.isOk = false;
-            respuesta.message = "El Id de la boya ingresada no es válido.";
-            return ResponseEntity.badRequest().body(respuesta);
+            r.isOk = false;
+            r.message = "El Id de la boya ingresada no es válido.";
+            return ResponseEntity.badRequest().body(r);
         }
         return ResponseEntity.ok(service.buscarPorId(id));
     }
@@ -58,7 +56,7 @@ public class BoyaController {
         GenericResponse r = new GenericResponse();
         r.isOk = true;
 
-       Boya boya = service.buscarPorId(id);
+        Boya boya = service.buscarPorId(id);
         boya.setColor(faroColor.color);
         service.actualizar(boya);
 
@@ -66,5 +64,4 @@ public class BoyaController {
         return ResponseEntity.ok(r);
     }
 
-    
 }

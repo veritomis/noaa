@@ -15,8 +15,8 @@ public class Boya {
     @Column(name = "boya_id")
     private Integer boyaId;
 
-    @Column(name = "color_id")
-    private Integer color;
+    @Column(name = "color_luz")
+    private String color;
 
     private Double longitud;
 
@@ -25,31 +25,6 @@ public class Boya {
     @OneToMany(mappedBy = "boya", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     private List<Muestra> muestras = new ArrayList<>();
-
-    public enum FaroColorEnum {
-        ROJO(1), AMARILLO(2), VERDE(3), AZUL(4), NULL(5);
-
-        private final Integer value;
-
-        private FaroColorEnum(Integer value) {
-            this.value = value;
-        }
-
-        public Integer getValue() {
-            return value;
-        }
-
-        public static FaroColorEnum parse(Integer id) {
-            FaroColorEnum status = null;
-            for (FaroColorEnum item : FaroColorEnum.values()) {
-                if (item.getValue().equals(id)) {
-                    status = item;
-                    break;
-                }
-            }
-            return status;
-        }
-    }
 
     public Integer getBoyaId() {
         return boyaId;
@@ -83,18 +58,17 @@ public class Boya {
         this.latitud = latitud;
     }
 
-    public FaroColorEnum getColor() { // 20:13
-        return FaroColorEnum.parse(color);
+    public String getColor() {
+        return color;
     }
 
-    public void setColor(FaroColorEnum color) {
-        this.color = color.getValue();
+    public void setColor(String color) {
+        this.color = color;
     }
 
     public void agregarMuestra(Muestra muestra) {
         this.muestras.add(muestra);
         muestra.setBoya(this);
     }
-
 
 }

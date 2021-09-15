@@ -13,7 +13,7 @@ public class Muestra {
     @Column(name = "muestra_id")
     private Integer muestraId;
 
-    private Date fecha;
+    private Date horario;
 
     private String matricula;
 
@@ -37,12 +37,12 @@ public class Muestra {
         this.muestraId = muestraId;
     }
 
-    public Date getFecha() {
-        return fecha;
+    public Date getHorario() {
+        return horario;
     }
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
+    public void setHorario(Date horario) {
+        this.horario = horario;
     }
 
     public String getMatricula() {
@@ -84,7 +84,5 @@ public class Muestra {
     public void setBoya(Boya boya) {
         this.boya = boya;
     }
-
-   
 
 }
