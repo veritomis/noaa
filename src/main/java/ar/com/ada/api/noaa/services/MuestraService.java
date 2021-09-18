@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ar.com.ada.api.noaa.entities.*;
+import ar.com.ada.api.noaa.models.response.AlturaMinima;
 import ar.com.ada.api.noaa.models.response.ColorResponse;
 import ar.com.ada.api.noaa.repos.BoyaRepository;
 import ar.com.ada.api.noaa.repos.MuestraRepository;
@@ -38,8 +39,7 @@ public class MuestraService {
 
         if (muestra.getAltura() < -100 || muestra.getAltura() > 100) {
             boya.setColor("ROJO");
-        }
-        if (muestra.getAltura() < -50 || muestra.getAltura() > 50) {
+        } else if (muestra.getAltura() < -50 || muestra.getAltura() > 50) {
             boya.setColor("AMARILLO");
         } else {
             boya.setColor("VERDE");
@@ -74,34 +74,47 @@ public class MuestraService {
             return false;
     }
 
-    public List<Muestra> muestrasByColor(String color) {
-        Boya boya = boyaService.buscarPorColor(color);
-        return boya.getMuestras();
+    public Muestra alturamin(Integer boyaId) {
+        Boya boya = boyaService.buscarPorId(boyaId);
+        Muestra alturamin = boya.getMuestras().get(0);
+        for (Muestra muestra : boya.getMuestras()) {
+            if (muestra.getAltura() < alturamin.getAltura()) {
+                alturamin = muestra;
+
+            }
+        }
+        return alturamin;
+
+    }
+
+    public List<ColorResponse> buscarByColor(String color) {
+        List<ColorResponse> cRs = new ArrayList();
+
+        ColorResponse cR = new ColorResponse();
+        for (Muestra muestra : repository.findAll()) {
+
+            if (muestraColor(muestra).equals(color)) {
+
+                cR.boyaId = muestra.getBoya().getBoyaId();
+                cR.horario = muestra.getHorario();
+                cR.altura = muestra.getAltura();
+
+                cRs.add(cR);
+
+            }
+        }
+        return cRs;
+    }
+
+    public String muestraColor(Muestra muestra) {
+
+        if (muestra.getAltura() < -100 || muestra.getAltura() > 100) {
+            return "ROJO";
+        } else if (muestra.getAltura() < -50 || muestra.getAltura() > 50) {
+            return "AMARILLO";
+        } else {
+            return "VERDE";
+        }
     }
 
 }
-
-// List<ColorResponse>colorResponse = new ArrayList<>();
-/*
- * ColorResponse colorMuestra = new ColorResponse();
- * 
- * for (Muestra muestra : repository.findAll()){
- * if(muestra.getBoya().getColor().equals(color)){
- * 
- * colorMuestra.setAltura(altura); colorMuestra.setBoyaId(boyaId);
- * 
- * colorMuestras.add(colorMuestra); } } return colorMuestras;
- * 
- * }
- */
-
-/*
- * public boolean validarColor(Integer color) { Boya boya =
- * repository.findByColor(color); if(boya.getColor().equals(color)){ return
- * true; } else return false; }
- */
-
-/*
- * altura > 50 AMARILLO altura > 100 ROJO ALTURA < -50 AMARILLO ALTURA < -100
- * ROJO ALTURA = 50 VERDE ok
- */

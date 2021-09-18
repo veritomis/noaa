@@ -85,4 +85,7 @@ public class Muestra {
         this.boya = boya;
     }
 
+    public void getBoyaId() {
+    }
+
 }

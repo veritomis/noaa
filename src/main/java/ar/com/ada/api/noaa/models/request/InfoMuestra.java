@@ -10,5 +10,5 @@ public class InfoMuestra {
     public Double longitudActual;
     public Double latitudActual;
     public Double altura;
-    
+
 }
