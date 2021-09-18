@@ -90,8 +90,9 @@ public class MuestraService {
     public List<ColorResponse> buscarByColor(String color) {
         List<ColorResponse> cRs = new ArrayList();
 
-        ColorResponse cR = new ColorResponse();
+        
         for (Muestra muestra : repository.findAll()) {
+            ColorResponse cR = new ColorResponse();
 
             if (muestraColor(muestra).equals(color)) {
 
