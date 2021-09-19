@@ -79,4 +79,10 @@ public class MuestraController {
 
     }
 
+    @GetMapping("api/muestras/anomalias/{boyaId}")
+    public ResponseEntity<AnomaliaResponse>traerAnomalia(@PathVariable Integer boyaId){
+        return ResponseEntity.ok(service.tipoDeAlerta(boyaId));
+    }
+
+
 }

@@ -2,12 +2,13 @@ package ar.com.ada.api.noaa.services;
 
 import java.util.*;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ar.com.ada.api.noaa.entities.*;
-import ar.com.ada.api.noaa.models.response.AlturaMinima;
-import ar.com.ada.api.noaa.models.response.ColorResponse;
+import ar.com.ada.api.noaa.models.response.*;
 import ar.com.ada.api.noaa.repos.BoyaRepository;
 import ar.com.ada.api.noaa.repos.MuestraRepository;
 
@@ -90,7 +91,6 @@ public class MuestraService {
     public List<ColorResponse> buscarByColor(String color) {
         List<ColorResponse> cRs = new ArrayList();
 
-        
         for (Muestra muestra : repository.findAll()) {
             ColorResponse cR = new ColorResponse();
 
@@ -116,6 +116,30 @@ public class MuestraService {
         } else {
             return "VERDE";
         }
+    }
+
+    public AnomaliaResponse tipoDeAlerta(Integer boyaId) {
+        AnomaliaResponse aR = new AnomaliaResponse();
+        Boya boya = boyaService.buscarPorId(boyaId);
+        Muestra m = boya.getMuestras().get(0);
+        for (Muestra muestra : muestrasPorBoyaId(boyaId)) {
+
+            if ((muestra.getAltura() - m.getAltura()) == 500) {
+                aR.alturaNivelDelMarActual = muestra.getAltura();
+                aR.horarioInicioAnomalia = muestra.getHorario();
+                aR.horarioInicioFinAnomalia = muestra.getHorario();
+                aR.tipoAlerta = "ALERTA DE IMPACTO";
+
+            } else if ((Math.abs(muestra.getAltura()) - Math.abs(m.getAltura())) == 200) {
+                aR.alturaNivelDelMarActual = muestra.getAltura();
+                aR.horarioInicioAnomalia = muestra.getHorario();
+                aR.horarioInicioFinAnomalia = muestra.getHorario();
+                aR.tipoAlerta = "ALERTA DE KAIJU";
+            }
+
+        }
+        return aR;
+
     }
 
 }
